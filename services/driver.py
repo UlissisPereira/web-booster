@@ -5,7 +5,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.remote.webelement import WebElement
 
 
 class Driver:
@@ -15,7 +14,7 @@ class Driver:
     def __init__(self) -> None:
         try:
             options = webdriver.FirefoxOptions()
-            # options.add_argument("-headless")
+            options.add_argument("-headless")
             options.set_preference('geo.prompt.testing', True)
             options.set_preference('geo.prompt.testing.allow', True)
             options.set_preference('geo.provider.network.url',

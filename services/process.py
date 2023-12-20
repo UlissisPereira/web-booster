@@ -34,8 +34,6 @@ class WebProcess:
             except Exception as e:
                 tasks.put(count)
                 self.log.log_error.error("{} : {}".format(type(e).__name__, e))
-            finally:
-                break
 
         return True
             
