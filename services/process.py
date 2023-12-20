@@ -17,25 +17,25 @@ class WebProcess:
             self.tasks.put(i)
         
         for n in range(self.number_procs):
-            proc = Process(target=self.readNews,args=(self.tasks, self.number_procs))
+            proc = Process(target=self.read_news, args=(self.tasks, self.number_procs))
             self.procs.append(proc)
             proc.start()
     
-    def readNews (self, tasks, count):
+    def read_news(self, tasks, count):
         while True:
             try:
                 tasks.get_nowait()
                 self.driver.run()
             except queue.Empty:
                 break
+            except AttributeError as e:
+                self.log.log_error.error("{} : {}".format(type(e).__name__, e))
+                break
             except Exception as e:
                 tasks.put(count)
-                self.log.log_error.error("{} : {}".format(type(e).__name__,e))
-            else:
-                tasks.put(count)
-                self.log.log_info.info("Acesso realizado com sucesso!")                
-            
+                self.log.log_error.error("{} : {}".format(type(e).__name__, e))
+            finally:
+                break
+
         return True
-        
-            
             
