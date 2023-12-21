@@ -14,7 +14,7 @@ class Driver:
     def __init__(self) -> None:
         try:
             options = webdriver.FirefoxOptions()
-            #options.add_argument("-headless")
+            options.add_argument("-headless")
             options.set_preference('geo.prompt.testing', True)
             options.set_preference('geo.prompt.testing.allow', True)
             options.set_preference('geo.provider.network.url',
@@ -45,7 +45,6 @@ class Driver:
             else:
                 link = choice(children)
                 url = link.get_attribute("href")
-            url = link.get_attribute("href")
             self.webdriver.execute_script("arguments[0].click();", link)
             self.webdriver.implicitly_wait(120)
             self.webdriver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
