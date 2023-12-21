@@ -14,7 +14,7 @@ class Driver:
     def __init__(self) -> None:
         try:
             options = webdriver.FirefoxOptions()
-            options.add_argument("-headless")
+            #options.add_argument("-headless")
             options.set_preference('geo.prompt.testing', True)
             options.set_preference('geo.prompt.testing.allow', True)
             options.set_preference('geo.provider.network.url',
@@ -38,12 +38,19 @@ class Driver:
                 EC.presence_of_all_elements_located((By.CLASS_NAME, "pfy-post-title")))
             links = self.webdriver.find_elements(By.CLASS_NAME, "pfy-post-title")
             pai = choice(links)
-            link = pai.find_element(By.TAG_NAME, "a")
+            children = pai.find_element(By.TAG_NAME, "a")
+            if type(children) is not list:
+                link = children
+                url = link.get_attribute("href")
+            else:
+                link = choice(children)
+                url = link.get_attribute("href")
+            url = link.get_attribute("href")
             self.webdriver.execute_script("arguments[0].click();", link)
             self.webdriver.implicitly_wait(120)
             self.webdriver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
             sleep(delay)
-            self.log.log_info.info("Acesso realizado com sucesso!")
+            self.log.log_info.info("Acesso realizado com sucesso - url: {}".format(url))
         except Exception as e:
             self.log.log_error.error("{} : {} : {}".format("Execute error", type(e).__name__, e))
         finally:

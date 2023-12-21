@@ -8,7 +8,6 @@ class WebProcess:
     number_procs = 20
     procs = []
     tasks = Queue()
-    driver = Driver()
     log = Log()
         
     def run(self) -> None:
@@ -17,7 +16,7 @@ class WebProcess:
             self.tasks.put(i)
         
         for n in range(self.number_procs):
-            proc = Process(target=self.read_news, args=(self.tasks, self.number_procs))
+            proc = Process(target=self.read_news, args=(self.tasks, n))
             self.procs.append(proc)
             proc.start()
     
@@ -25,11 +24,10 @@ class WebProcess:
         while True:
             try:
                 tasks.get_nowait()
-                self.driver.run()
+                driver = Driver()
+                driver.run()
+                tasks.put(count)
             except queue.Empty:
-                break
-            except AttributeError as e:
-                self.log.log_error.error("{} : {}".format(type(e).__name__, e))
                 break
             except Exception as e:
                 tasks.put(count)
