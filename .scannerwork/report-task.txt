@@ -1,0 +1,6 @@
+projectKey=webbooster
+serverUrl=http://localhost:8085
+serverVersion=10.3.0.82913
+dashboardUrl=http://localhost:8085/dashboard?id=webbooster
+ceTaskId=AYyNzQi9z2Ish4iDVhXC
+ceTaskUrl=http://localhost:8085/api/ce/task?id=AYyNzQi9z2Ish4iDVhXC

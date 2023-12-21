@@ -1,0 +1,6 @@
+{
+    "sonarlint.connectedMode.project": {
+        "connectionId": "http-localhost-8085-",
+        "projectKey": "webbooster"
+    }
+}

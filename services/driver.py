@@ -1,5 +1,5 @@
+import secrets
 from time import sleep
-from random import choice
 from services.log import Log
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -37,13 +37,13 @@ class Driver:
             WebDriverWait(self.webdriver, delay).until(
                 EC.presence_of_all_elements_located((By.CLASS_NAME, "pfy-post-title")))
             links = self.webdriver.find_elements(By.CLASS_NAME, "pfy-post-title")
-            pai = choice(links)
+            pai = secrets.choice(links)
             children = pai.find_element(By.TAG_NAME, "a")
             if type(children) is not list:
                 link = children
                 url = link.get_attribute("href")
             else:
-                link = choice(children)
+                link = secrets.choice(children)
                 url = link.get_attribute("href")
             self.webdriver.execute_script("arguments[0].click();", link)
             self.webdriver.implicitly_wait(120)
